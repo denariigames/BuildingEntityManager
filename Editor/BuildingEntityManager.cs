@@ -46,7 +46,6 @@ namespace DenariiGames.Building
 
 		// PROPERTIES: ----------------------------------------------------------------------------
 
-		int tabIndex = 0;
 		bool isValidSettings = false;
 		bool isValidSelection = false;
 		bool isSaving = false;
@@ -71,9 +70,19 @@ namespace DenariiGames.Building
 			window.Show();
 
 			//set title and icon
-			Texture icon = AssetDatabase.LoadAssetAtPath<Texture>("Assets/DenariiGames/BuildingEntityManager/Editor/Resources/BuildingEntityManager Icon.png");
+			Texture icon = AssetDatabase.LoadAssetAtPath<Texture>(RootPath + "/Resources/BuildingEntityManager Icon.png");
 			GUIContent titleContent = new GUIContent ("BuildingEntity Manager", icon);
 			window.titleContent = titleContent;
+		}
+
+		public static string RootPath
+		{
+			get
+			{
+				string[] path = AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets($"t:Script {nameof(BuildingEntityManager)}")[0]).Split("/");
+				Array.Resize(ref path, path.Length - 1);
+				return string.Join("/", path);
+			}
 		}
 
 		void OnGUI()
